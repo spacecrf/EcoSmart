@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoSmart Tech Platform</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --primary: #2563eb;
+  --accent: #22c55e;
+}
+body.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #e2e8f0;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+}
+.sidebar {
+  width: 220px;
+  background: #0a2540;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+.sidebar h2 { margin-bottom: 20px; }
+.sidebar p { opacity: 0.7; }
+.main {
+  flex: 1;
+  padding: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+.card {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.metric {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: var(--primary);
+}
+.alert { color: red; font-weight: bold; }
+canvas { max-height: 200px; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>EcoSmart</h2>
+  <p>Dashboard</p>
+  <p>Consumo</p>
+  <p>IA</p>
+  <p>Alertas</p>
+</div>
+
+<div class="main">
+
+<div class="header">
+  <h1>Panel de Control</h1>
+  <button class="button" onclick="toggleTheme()">Modo oscuro</button>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h3>Consumo energético</h3>
+    <p class="metric">320 kWh</p>
+  </div>
+  <div class="card">
+    <h3>Huella CO₂</h3>
+    <p class="metric">120 kg</p>
+  </div>
+  <div class="card">
+    <h3>Eficiencia</h3>
+    <p class="metric">82%</p>
+  </div>
+  <div class="card">
+    <h3>Estado</h3>
+    <p>✔ Sistema estable</p>
+  </div>
+</div>
+
+<div class="grid" style="margin-top:20px;">
+  <div class="card">
+    <h3>Consumo semanal</h3>
+    <canvas id="energyChart"></canvas>
+  </div>
+  <div class="card">
+    <h3>Emisiones CO₂</h3>
+    <canvas id="co2Chart"></canvas>
+  </div>
+</div>
+
+<div class="grid" style="margin-top:20px;">
+  <div class="card">
+    <h3>Recomendación IA</h3>
+    <p>Reduce uso nocturno → ahorro 15%</p>
+    <button class="button">Aplicar</button>
+  </div>
+  <div class="card">
+    <h3>Alertas</h3>
+    <p class="alert">⚠ Consumo alto detectado</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+}
+
+new Chart(document.getElementById('energyChart'), {
+  type: 'line',
+  data: {
+    labels: ['L','M','X','J','V','S','D'],
+    datasets: [{ label: 'kWh', data: [300,320,310,330,340,300,320] }]
+  }
+});
+
+new Chart(document.getElementById('co2Chart'), {
+  type: 'bar',
+  data: {
+    labels: ['L','M','X','J','V','S','D'],
+    datasets: [{ label: 'CO₂', data: [100,120,110,130,140,100,120] }]
+  }
+});
+</script>
+
+</body>
+</html>
